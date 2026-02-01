@@ -2,6 +2,7 @@ import uploadOnCloudinary from "../config/cloudinary.js";
 import User from "../model/userModel.js";
 import validator from 'validator';
 import bcrypt from "bcryptjs";
+import genToken from "../config/token.js";
 
 export const signUp = async (req, res)=>{
     try{
@@ -30,7 +31,16 @@ export const signUp = async (req, res)=>{
                 photoUrl
             }
         )
+        let token = await genToken(user._id)
+
+        res.cookie("token",token,{
+            httpOnly:true,
+            secure:false,
+            samesite:"Strict",
+            maxAge:7 * 24 * 60 * 60 * 1000
+        })
+        return res.status(201).json(user)
     } catch(error){
-        console.log(error);
+        return res.status(500).json({message:`SignUp error ${error}`})
     }
 }

@@ -1,9 +1,78 @@
-import React from "react";
+import React, { useState } from "react";
+import { FaArrowCircleLeft } from "react-icons/fa";
+import logo from "../assets/Youtube_logo.png"
+import { FaUserCircle } from "react-icons/fa";
 
 function SignUp(){
+    const[step,setStep]=useState(2)
+    const[userName,setUserName]=useState("")
+    const[email,setEmail]=useState("")
+    const [password,setPassword]=useState("")
+    const[confirmPassword, setConfirmPassword]=useState("")
     return(
-        <div className="text-amber-950 text-5xl">
-SignUp
+        <div className="flex items-center justify-center min-h-screen bg-[#181818]">
+            <div className="bg-[#202124] rounded-2xl p-10 w-full max-w-md shadow-lg">
+                <div className="flex items-center mb-6">
+                    <button className="text-gray-300 mr-3 hover:text-white">
+                        <FaArrowCircleLeft size={20}/>
+                    </button>
+                    <span className="text-white text-2xl font-medium">Create Account</span>
+
+                </div>
+                {/*Step1*/}
+                {step == 1 && (
+                    <>
+                    <h1 className="text-3xl font-normal text-white mb-2 flex items-center gap-2">
+                        <img src={logo} alt="logo" className="w-8 h-8 "/>
+                        Basic Info
+                    </h1>
+                    <input type="text" placeholder="User Name" className="w-full bg-transparent border
+                     border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-500 mb-4" onChange={(e)=>setUserName(e.target.value)}value={userName}/>
+                   
+                    <input type="text" placeholder="Email" className="w-full bg-transparent border
+                     border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-500 mb-4" onChange={(e)=>setEmail(e.target.value)}value={email}/>
+                   
+                   <div className="flex justify-end mt-10">
+                    <button className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full">Next</button>
+                   </div>
+                   
+                    </>
+                )
+
+                }
+
+
+                {/*Step2*/}
+
+                {step == 2 && (
+                    <>
+                    <h1 className="text-3xl font-normal text-white mb-2 flex items-center gap-2">
+                        <img src={logo} alt="logo" className="w-8 h-8 "/>
+                        Security
+                    </h1>
+                    <div className="flex items-center bg-[#3c4043] text-white px-3 py-2 rounded-full w-fit mb-6">
+                        <FaUserCircle className="mr-2" size={20}/>
+                        {email}
+                    </div>
+                    <input type="text" placeholder="Password" className="w-full bg-transparent border
+                     border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-500 mb-4" onChange={(e)=>setPassword(e.target.value)}value={password}/>
+                   
+                    <input type="text" placeholder="Confirm Password" className="w-full bg-transparent border
+                     border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-500 mb-4" onChange={(e)=>setConfirmPassword(e.target.value)}value={confirmPassword}/>
+                   
+                   <div className="flex justify-end mt-10">
+                    <button className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full">Next</button>
+                   </div>
+                   
+                    </>
+                )
+
+                }
+
+
+
+
+            </div>
         </div>
     )
 }

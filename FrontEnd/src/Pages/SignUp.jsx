@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { FaArrowCircleLeft } from "react-icons/fa";
 import logo from "../assets/Youtube_logo.png"
 import { FaUserCircle } from "react-icons/fa";
+import {Navigate, useNavigate} from "react-router-dom"
 
 function SignUp(){
-    const[step,setStep]=useState(3)
+    const[step,setStep]=useState(1)
     const[userName,setUserName]=useState("")
     const[email,setEmail]=useState("")
     const [password,setPassword]=useState("")
@@ -12,6 +13,27 @@ function SignUp(){
     const[showPassword,setShowPassword]=useState(false)
     const[backendImage,setBackendImage]=useState(null)
     const [frontendImage,setFrontendImage]=useState(null)
+
+
+    const handleNext = ()=>{
+        if(step==1){
+            if(!userName || !email){
+                alert("Fill all the field")
+                return
+            }
+        }
+        if(step==2){
+            if(!password || !confirmPassword){
+                alert("Fill all the field")
+                return
+            }
+            if(password !== confirmPassword){
+                alert("Password is not match")
+                return
+            }
+        }
+        setStep(step+1)
+    }
 
 
     const handleImage = (e)=>{
@@ -23,7 +45,13 @@ function SignUp(){
         <div className="flex items-center justify-center min-h-screen bg-[#181818]">
             <div className="bg-[#202124] rounded-2xl p-10 w-full max-w-md shadow-lg">
                 <div className="flex items-center mb-6">
-                    <button className="text-gray-300 mr-3 hover:text-white">
+                    <button className="text-gray-300 mr-3 hover:text-white" onClick={()=>{
+                        if(step>1){
+                            setStep(step-1)
+                        }else{
+                            Navigate("/")
+                        }
+                    }}>
                         <FaArrowCircleLeft size={20}/>
                     </button>
                     <span className="text-white text-2xl font-medium">Create Account</span>
@@ -43,7 +71,8 @@ function SignUp(){
                      border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-600 mb-4" onChange={(e)=>setEmail(e.target.value)}value={email}/>
                    
                    <div className="flex justify-end mt-10">
-                    <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full">Next</button>
+                    <button className="bg-red-600 hover:bg-red-700 text-white px-6 
+                    py-2 rounded-full" onClick={handleNext}>Next</button>
                    </div>
                    
                     </>
@@ -76,7 +105,8 @@ function SignUp(){
                    </div>
 
                    <div className="flex justify-end mt-10">
-                    <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full">Next</button>
+                    <button className="bg-red-600 hover:bg-red-700 text-white px-6 
+                    py-2 rounded-full" onClick={handleNext}>Next</button>
                    </div>
                    
                     </>
@@ -108,7 +138,8 @@ function SignUp(){
                    </div>
 
                    <div className="flex justify-end mt-10">
-                    <button className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full">Create Account</button>
+                    <button className="bg-green-500 hover:bg-green-600 text-white px-6 
+                    py-2 rounded-full">Create Account</button>
                    </div>
                    
                     </>

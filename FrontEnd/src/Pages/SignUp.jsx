@@ -4,12 +4,21 @@ import logo from "../assets/Youtube_logo.png"
 import { FaUserCircle } from "react-icons/fa";
 
 function SignUp(){
-    const[step,setStep]=useState(2)
+    const[step,setStep]=useState(3)
     const[userName,setUserName]=useState("")
     const[email,setEmail]=useState("")
     const [password,setPassword]=useState("")
     const[confirmPassword, setConfirmPassword]=useState("")
     const[showPassword,setShowPassword]=useState(false)
+    const[backendImage,setBackendImage]=useState(null)
+    const [frontendImage,setFrontendImage]=useState(null)
+
+
+    const handleImage = (e)=>{
+        const file = e.target.files[0]
+        setBackendImage(file);
+        setFrontendImage(URL.createObjectURL(file))
+    }
     return(
         <div className="flex items-center justify-center min-h-screen bg-[#181818]">
             <div className="bg-[#202124] rounded-2xl p-10 w-full max-w-md shadow-lg">
@@ -28,13 +37,13 @@ function SignUp(){
                         Basic Info
                     </h1>
                     <input type="text" placeholder="User Name" className="w-full bg-transparent border
-                     border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-500 mb-4" onChange={(e)=>setUserName(e.target.value)}value={userName}/>
+                     border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-600 mb-4" onChange={(e)=>setUserName(e.target.value)}value={userName}/>
                    
                     <input type="text" placeholder="Email" className="w-full bg-transparent border
-                     border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-500 mb-4" onChange={(e)=>setEmail(e.target.value)}value={email}/>
+                     border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-600 mb-4" onChange={(e)=>setEmail(e.target.value)}value={email}/>
                    
                    <div className="flex justify-end mt-10">
-                    <button className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full">Next</button>
+                    <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full">Next</button>
                    </div>
                    
                     </>
@@ -56,10 +65,10 @@ function SignUp(){
                         {email}
                     </div>
                     <input type={showPassword ? "text" : "password"} placeholder="Password" className="w-full bg-transparent border
-                     border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-500 mb-4" onChange={(e)=>setPassword(e.target.value)}value={password}/>
+                     border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-600 mb-4" onChange={(e)=>setPassword(e.target.value)}value={password}/>
                    
                     <input type={showPassword ? "text" : "password"} placeholder="Confirm Password" className="w-full bg-transparent border
-                     border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-500 mb-4" onChange={(e)=>setConfirmPassword(e.target.value)}value={confirmPassword}/>
+                     border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-600 mb-4" onChange={(e)=>setConfirmPassword(e.target.value)}value={confirmPassword}/>
                    
                    <div className="flex items-center gap-2 mt-3">
                     <input type="checkbox" id="showpassword" checked={showPassword} onChange={()=>setShowPassword(!showPassword)}/>
@@ -67,7 +76,7 @@ function SignUp(){
                    </div>
 
                    <div className="flex justify-end mt-10">
-                    <button className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full">Next</button>
+                    <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full">Next</button>
                    </div>
                    
                     </>
@@ -75,7 +84,37 @@ function SignUp(){
 
                 }
 
+{/*Step3*/}
+                  {step == 3 && (
+                    <>
+                    <h1 className="text-3xl font-normal text-white mb-2 flex items-center gap-2">
+                        <img src={logo} alt="logo" className="w-8 h-8 "/>
+                        Choose Avatar
+                    </h1>
+                   <div className="flex items-center gap-6 mb-6">
+                    <div className="w-28 h-28 rounded-full border-4 border-gray-500 overflow-hidden shadow-lg">
+                       
+                       {frontendImage ? <img src={frontendImage} className="w-full h-full object-cover"/>
+                       :<FaUserCircle className="text-gray-500 w-full h-full p-2" />
+                       }
+                        
+                    </div>
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="" className="text-gray-300 font-medium">Choose Profile Picture</label>
+                        <input type="file" accept="image/*" className="block w-full text-sm text-gray-400 file:mr-4 file:py-2
+                        file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold
+                        file:bg-red-600 file:text-white hover:file:bg-red-700 cursor-pointer" onChange={handleImage}/>
+                    </div>
+                   </div>
 
+                   <div className="flex justify-end mt-10">
+                    <button className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-full">Create Account</button>
+                   </div>
+                   
+                    </>
+                )
+
+                }
 
 
             </div>

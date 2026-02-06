@@ -3,6 +3,11 @@ import { FaArrowCircleLeft } from "react-icons/fa";
 import logo from "../assets/Youtube_logo.png"
 import { FaUserCircle } from "react-icons/fa";
 import {Navigate, useNavigate} from "react-router-dom"
+import axios from 'axios'
+import { serverUrl } from "../App";
+import {ClipLoader} from "react-spinners"
+
+
 
 function SignUp(){
     const[step,setStep]=useState(1)
@@ -13,6 +18,7 @@ function SignUp(){
     const[showPassword,setShowPassword]=useState(false)
     const[backendImage,setBackendImage]=useState(null)
     const [frontendImage,setFrontendImage]=useState(null)
+    const[loading,setLoading]=useState(false)
 
 
     const handleNext = ()=>{
@@ -41,6 +47,31 @@ function SignUp(){
         setBackendImage(file);
         setFrontendImage(URL.createObjectURL(file))
     }
+
+
+const handleSignUp = async ()=>{
+    if(!backendImage){
+        alert("Please Choose profileImage")
+        return
+    }
+    setLoading(true)
+    const formData  = new FormData
+    formData.append("user Name",userName)
+    formData.append("email",email)
+    formData.append("password",password)
+    formData.append("photoUrl",backendImage)
+    try {
+        const result = await axios.post(serverUrl + "/api/auth/signup", formData, {withCredentials:true})
+        console.log(result.data)
+        Navigate("/")
+        setLoading(false)
+    } catch (error) {
+        console.log(error)
+        setLoading(false)
+    }
+}
+
+
     return(
         <div className="flex items-center justify-center min-h-screen bg-[#181818]">
             <div className="bg-[#202124] rounded-2xl p-10 w-full max-w-md shadow-lg">
@@ -139,7 +170,7 @@ function SignUp(){
 
                    <div className="flex justify-end mt-10">
                     <button className="bg-green-500 hover:bg-green-600 text-white px-6 
-                    py-2 rounded-full">Create Account</button>
+                    py-2 rounded-full" onClick={handleSignUp} disabled={loading}>{loading ? <ClipLoader color="black" size={20}/>:"Create Account"}</button>
                    </div>
                    
                     </>

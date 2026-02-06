@@ -9,6 +9,7 @@ function SignUp(){
     const[email,setEmail]=useState("")
     const [password,setPassword]=useState("")
     const[confirmPassword, setConfirmPassword]=useState("")
+    const[showPassword,setShowPassword]=useState(false)
     return(
         <div className="flex items-center justify-center min-h-screen bg-[#181818]">
             <div className="bg-[#202124] rounded-2xl p-10 w-full max-w-md shadow-lg">
@@ -54,12 +55,17 @@ function SignUp(){
                         <FaUserCircle className="mr-2" size={20}/>
                         {email}
                     </div>
-                    <input type="text" placeholder="Password" className="w-full bg-transparent border
+                    <input type={showPassword ? "text" : "password"} placeholder="Password" className="w-full bg-transparent border
                      border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-500 mb-4" onChange={(e)=>setPassword(e.target.value)}value={password}/>
                    
-                    <input type="text" placeholder="Confirm Password" className="w-full bg-transparent border
+                    <input type={showPassword ? "text" : "password"} placeholder="Confirm Password" className="w-full bg-transparent border
                      border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-500 mb-4" onChange={(e)=>setConfirmPassword(e.target.value)}value={confirmPassword}/>
                    
+                   <div className="flex items-center gap-2 mt-3">
+                    <input type="checkbox" id="showpassword" checked={showPassword} onChange={()=>setShowPassword(!showPassword)}/>
+                    <label className="text-gray-300 cursor-pointer" htmlFor="showpassword" >Show Password</label>
+                   </div>
+
                    <div className="flex justify-end mt-10">
                     <button className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full">Next</button>
                    </div>

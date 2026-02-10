@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { FaArrowCircleLeft } from "react-icons/fa";
 import logo from "../assets/Youtube_logo.png"
 import { FaUserCircle } from "react-icons/fa";
-import {Navigate, useNavigate} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 import axios from 'axios'
-import { serverUrl } from "../App";
 import {ClipLoader} from "react-spinners"
 
-
+const serverUrl="http://localhost:8000";
 
 function SignUp(){
     const[step,setStep]=useState(1)
@@ -19,6 +18,7 @@ function SignUp(){
     const[backendImage,setBackendImage]=useState(null)
     const [frontendImage,setFrontendImage]=useState(null)
     const[loading,setLoading]=useState(false)
+     const navigate = useNavigate()
 
 
     const handleNext = ()=>{
@@ -50,23 +50,25 @@ function SignUp(){
 
 
 const handleSignUp = async ()=>{
+   
+
     if(!backendImage){
         alert("Please Choose profileImage")
         return
     }
     setLoading(true)
-    const formData  = new FormData
-    formData.append("user Name",userName)
+    const formData  = new FormData();
+    formData.append("userName",userName)
     formData.append("email",email)
     formData.append("password",password)
     formData.append("photoUrl",backendImage)
     try {
-        const result = await axios.post(serverUrl + "/api/auth/signup", formData, {withCredentials:true})
+        const result = await axios.post(`${serverUrl}/api/auth/signup`, formData, {withCredentials:true})
         console.log(result.data)
-        Navigate("/")
+        navigate("/")
         setLoading(false)
     } catch (error) {
-        console.log(error)
+        console.log(error.response.data)
         setLoading(false)
     }
 }
@@ -80,7 +82,7 @@ const handleSignUp = async ()=>{
                         if(step>1){
                             setStep(step-1)
                         }else{
-                            Navigate("/")
+                            navigate("/")
                         }
                     }}>
                         <FaArrowCircleLeft size={20}/>

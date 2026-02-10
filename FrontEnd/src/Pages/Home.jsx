@@ -1,11 +1,9 @@
 import React from "react";
-import CustomAlert from "../components/CustomAlert";
 
 function Home(){
     return(
-        <div className="text-red-950 text-5xlss">
+        <div className="text-red-950 text-5xl">
         Home Pages
-        <CustomAlert/>
         </div>
     )
 }

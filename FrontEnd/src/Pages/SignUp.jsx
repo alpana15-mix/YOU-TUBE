@@ -5,6 +5,7 @@ import { FaUserCircle } from "react-icons/fa";
 import {useNavigate} from "react-router-dom"
 import axios from 'axios'
 import {ClipLoader} from "react-spinners"
+import { showCustomAlert } from "../components/CustomAlert";
 
 const serverUrl="http://localhost:8000";
 
@@ -24,17 +25,17 @@ function SignUp(){
     const handleNext = ()=>{
         if(step==1){
             if(!userName || !email){
-                alert("Fill all the field")
+                showCustomAlert("Fill all the field")
                 return
             }
         }
         if(step==2){
             if(!password || !confirmPassword){
-                alert("Fill all the field")
+                showCustomAlert("Fill all the field")
                 return
             }
             if(password !== confirmPassword){
-                alert("Password is not match")
+                showCustomAlert("Password is not match")
                 return
             }
         }
@@ -53,7 +54,7 @@ const handleSignUp = async ()=>{
    
 
     if(!backendImage){
-        alert("Please Choose profileImage")
+        showCustomAlert("Please Choose profileImage")
         return
     }
     setLoading(true)
@@ -67,9 +68,11 @@ const handleSignUp = async ()=>{
         console.log(result.data)
         navigate("/")
         setLoading(false)
+        showCustomAlert("Account Created")
     } catch (error) {
         console.log(error.response.data)
         setLoading(false)
+        showCustomAlert("SignUp error")
     }
 }
 
@@ -98,7 +101,7 @@ const handleSignUp = async ()=>{
                         Basic Info
                     </h1>
                     <input type="text" placeholder="User Name" className="w-full bg-transparent border
-                     border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-600 mb-4" onChange={(e)=>setUserName(e.target.value)}value={userName}/>
+                     sborder-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-600 mb-4" onChange={(e)=>setUserName(e.target.value)}value={userName}/>
                    
                     <input type="text" placeholder="Email" className="w-full bg-transparent border
                      border-gray-500 rounded-md px-3 py-3 text-white focus:outline-none focus:border-red-600 mb-4" onChange={(e)=>setEmail(e.target.value)}value={email}/>

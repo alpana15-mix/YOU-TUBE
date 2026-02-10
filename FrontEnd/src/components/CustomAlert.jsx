@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 let alertHandle;
 
@@ -8,17 +8,29 @@ export const showCustomAlert = (message)=>{
     }
 }
 
+
+
 function CustomAlert(){
+    const [mess,setMess] = useState("")
+    const [visible, setVisible] = useState(false)
+
+useEffect(()=>{
+    alertHandle=(message)=>{
+        setMess(message)
+        setVisible(true)
+    }
+},[])
+
 return(
-    <div className="fixed inset-0 flex items-start justify-center pt-12.5 bg-black/50 z-50">
+  visible &&  (<div className="fixed inset-0 flex items-start justify-center pt-12.5 bg-black/50 z-50">
         <div className="bg-[#202124] text-white rounded-lg shadow-lg p-6 w-80">
-            <p className="text-sm">message</p>
+            <p className="text-sm">{mess}</p>
               <div className="flex justify-end mt-10">
                                 <button className="bg-red-500 hover:bg-red-600 text-white px-6 
-                                py-2 rounded-full">ok</button>
+                                py-2 rounded-full" onClick={()=>{setVisible(false)}}>OK</button>
                                </div>
         </div>
-    </div>
+    </div>)
 )
 
 }

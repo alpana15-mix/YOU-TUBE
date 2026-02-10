@@ -70,9 +70,9 @@ const handleSignUp = async ()=>{
         setLoading(false)
         showCustomAlert("Account Created")
     } catch (error) {
-        console.log(error.response.data)
+        console.log(error.response.data.message)
         setLoading(false)
-        showCustomAlert("SignUp error")
+        showCustomAlert(error.response.data.message)
     }
 }
 

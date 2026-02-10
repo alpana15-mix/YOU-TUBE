@@ -1,12 +1,14 @@
 
 import React, { useState } from "react";
+import axios from 'axios'
 import { FaArrowCircleLeft } from "react-icons/fa";
 import logo from "../assets/Youtube_logo.png"
 import { FaUserCircle } from "react-icons/fa";
 import { showCustomAlert } from "../components/CustomAlert";
 import { useNavigate } from "react-router-dom";
+import {ClipLoader} from "react-spinners"
 
-
+const serverUrl="http://localhost:8000";
 
 function SignIn(){
 
@@ -14,6 +16,7 @@ function SignIn(){
     const[email,setEmail]=useState("")
     const [password,setPassword]=useState("")
     const [showPassword, setShowPassword]=useState(false)
+    const [loading,setLoading]=useState(false)
     const navigate = useNavigate()
 
 const handleNext = ()=>{
@@ -31,6 +34,23 @@ const handleNext = ()=>{
             
         }
         setStep(step+1)
+    }
+
+    const handleSignIn = async ()=>{
+        setLoading(true)
+        try {
+            const result= await axios.post(serverUrl + "/api/auth/signin", {email, password}, {withCredentials:true})
+        
+             console.log(result.data)
+                    navigate("/")
+                    setLoading(false)
+                    showCustomAlert("User SignIn Successfull")
+
+        } catch (error) {
+            console.log(error);
+             setLoading(false)
+                    showCustomAlert(error.response.data.message)
+        }
     }
 
     return(
@@ -96,7 +116,7 @@ const handleNext = ()=>{
  <div className="flex justify-between items-center mt-10">
                    <button className="text-red-600 text-sm hover:underline">forget password</button>
                     <button className="bg-red-600 hover:bg-red-700 text-white px-6 
-                    py-2 rounded-full">SignIn</button>
+                    py-2 rounded-full" onClick={handleSignIn} disabled={loading}>{loading ? <ClipLoader color="black" size={20}/>:"SignIn"}</button>
                    </div>
                    
                     </>

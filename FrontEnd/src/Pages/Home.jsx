@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiAlignJustify } from "react-icons/fi";
 import logo from "../assets/Youtube_logo.png"
-import { FaSearch } from "react-icons/fa";
-import { FaMicrophone } from "react-icons/fa";
-import { FaUserCircle } from "react-icons/fa";
+
+import {FaBars, FaUserCircle, FaHome, FaHistory, FaList,
+     FaThumbsUp, FaSearch, FaMicrophone, FaTimes,} from "react-icons/fa"
+import {IoIosAddCircle} from "react-icons/io";
+import {GoVideo} from "react-icons/go";
+import {SiYoutubeshorts} from "react-icons/si";
+import {MdOutlineSubscriptions} from "react-icons/md";
 
 function Home(){
+    const [sidebarOpen,setSidebarOpen]=useState(true)
+    const [selectedItem, setSelectedItem]=useState("Home")
     return(
         <div className="bg-[#0f0f0f]  text-white min-h-screen relative">
         
@@ -14,7 +20,8 @@ function Home(){
             <div className="flex items-center justify-between">
                 {/*left*/}
                 <div className="flex items-center gap-4">
-                    <button className="text-xl bg-[#272727] p-2 rounded-full md:inline">
+                    <button className="text-xl bg-[#272727] p-2 rounded-full md:inline 
+                    hidden" onClick={()=>setSidebarOpen(!sidebarOpen)}>
                         <FiAlignJustify />
                     </button>
                     <div className="flex items-center gap-1.25">
@@ -48,7 +55,41 @@ function Home(){
                 </div>
             </div>
         </header>
+
+        {/* sideBar */}
+
+        <aside className={`bg-[#0f0f0f] border-r border-gray-800 
+            transition-all duration-300 fixed top-15 bottom-0 z-40 
+            ${sidebarOpen? "w-60" :"w-20"} hidden md:flex flex-col overflow-y-auto`}>
+
+           <nav className="space-y-1 mt-3">
+            <SidebarItem icon={< FaHome/>} text={"Home"} open ={sidebarOpen} 
+            selected={selectedItem==="Home"} onClick={()=>setSelectedItem("Home")}/>
+
+            <SidebarItem icon={< SiYoutubeshorts/>} text={"Shorts"} open ={sidebarOpen} 
+            selected={selectedItem==="Shorts"} onClick={()=>setSelectedItem("Shorts")}/>
+
+            <SidebarItem icon={<MdOutlineSubscriptions/>} text={"Subscriptions"} open ={sidebarOpen} 
+            selected={selectedItem==="Subscriptions"} onClick={()=>setSelectedItem("Subscriptions")}/>
+           </nav>
+
+        </aside>
+
         </div>
     )
 }
+
+
+function SidebarItem({icon, text, open, selected, onClick}){
+    return(
+        <button className={`flex items-center gap-4 p-2 rounded 
+        w-full transition-colors ${open ? "justify-start" : "justify-center"} 
+        ${selected ? "bg-[#272727]": "hover:bg-[#272727]"}`} onClick={onClick}> 
+            <span className="text-lg">{icon}</span>
+            {open && <span className="text-sm">{text}</span>} 
+        </button>
+    )
+}
+
+
 export default Home

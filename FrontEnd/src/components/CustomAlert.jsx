@@ -27,7 +27,7 @@ return(
             <p className="text-sm">{mess}</p>
               <div className="flex justify-end mt-10">
                                 <button className="bg-red-500 hover:bg-red-600 text-white px-6 
-                                py-2 rounded-full" onClick={()=>{setVisible(false)}}>OK</button>
+                                py-2 rounded-full text-sm" onClick={()=>{setVisible(false)}}>OK</button>
                                </div>
         </div>
     </div>)

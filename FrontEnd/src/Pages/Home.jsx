@@ -97,6 +97,14 @@ function Home(){
             
         </aside>
 
+
+            {/* Main Area */}
+            <main className={`overflow-y-auto p-4 flex flex-col pb-16 transition-all
+             duration-300 ${sidebarOpen? "md:ml-60" : "md:ml-20"}`}>
+                
+             </main>
+
+
         {/* Bottom Nav */}
             <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#0f0f0f] border-t
             border-gray-800 flex justify-around py-2 z-10">

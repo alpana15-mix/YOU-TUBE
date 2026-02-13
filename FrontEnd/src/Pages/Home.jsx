@@ -8,14 +8,15 @@ import {IoIosAddCircle} from "react-icons/io";
 import {GoVideo} from "react-icons/go";
 import {SiYoutubeshorts} from "react-icons/si";
 import {MdOutlineSubscriptions} from "react-icons/md";
+import { Outlet, useNavigate } from "react-router-dom";
 
 function Home(){
     const [sidebarOpen,setSidebarOpen]=useState(true)
     const [selectedItem, setSelectedItem]=useState("Home")
     const [active, setActive] = useState("Home")
+    const navigate = useNavigate()
 
-
-const categories = ["Music", "Gaming", "Movies", "Tv Shows", "News", "Trending",
+const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
      "Entertainment", "Education", "Science & Tech", "Fashion", "Cooking", "Sports","Pets","Art", "Comedy","Vlogs"];
 
     return(
@@ -70,13 +71,13 @@ const categories = ["Music", "Gaming", "Movies", "Tv Shows", "News", "Trending",
 
            <nav className="space-y-1 mt-3">
             <SidebarItem icon={< FaHome/>} text={"Home"} open ={sidebarOpen} 
-            selected={selectedItem==="Home"} onClick={()=>setSelectedItem("Home")}/>
+            selected={selectedItem==="Home"} onClick={()=>{setSelectedItem("Home");  navigate("/");}}/>
 
             <SidebarItem icon={< SiYoutubeshorts/>} text={"Shorts"} open ={sidebarOpen} 
-            selected={selectedItem==="Shorts"} onClick={()=>setSelectedItem("Shorts")}/>
+            selected={selectedItem==="Shorts"} onClick={()=>{setSelectedItem("Shorts");  navigate("/shorts");}}/>
 
             <SidebarItem icon={<MdOutlineSubscriptions/>} text={"Subscriptions"} open ={sidebarOpen} 
-            selected={selectedItem==="Subscriptions"} onClick={()=>setSelectedItem("Subscriptions")}/>
+            selected={selectedItem==="Subscriptions"} onClick={()=>{setSelectedItem("Subscriptions");}}/>
            </nav>
 
            <hr className="border-gray-800 my-3"/>
@@ -104,16 +105,23 @@ const categories = ["Music", "Gaming", "Movies", "Tv Shows", "News", "Trending",
 
 
             {/* Main Area */}
-            <main className={`overflow-y-auto p-4 flex flex-col pb-16 transition-all
+            <main className={` overflow-y-auto p-4 flex flex-col pb-16 transition-all
              duration-300 ${sidebarOpen? "md:ml-60" : "md:ml-20"}`}>
 
-                <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide pt-2 mt-15">
+            { location.pathname === "/" && ( 
+                <>   
+                <div className="flex items-center gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden pt-2 mt-15">
                     {categories.map((cat,id)=>(
                         <button key={id} className="whitespace-nowrap bg-[#272727] px-4 py-1
                         rounded-lg text-sm hover:bg-gray-700">
                             {cat}
                         </button>
                     ))}
+                </div>
+            </>)}
+
+                <div className="mt-2">
+                    <Outlet/>
                 </div>
              </main>
 

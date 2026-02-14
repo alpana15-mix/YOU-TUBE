@@ -9,12 +9,14 @@ import {GoVideo} from "react-icons/go";
 import {SiYoutubeshorts} from "react-icons/si";
 import {MdOutlineSubscriptions} from "react-icons/md";
 import { Outlet, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Home(){
     const [sidebarOpen,setSidebarOpen]=useState(true)
     const [selectedItem, setSelectedItem]=useState("Home")
     const [active, setActive] = useState("Home")
     const navigate = useNavigate()
+    const {userData} = useSelector((state)=>state.user)
 
 const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
      "Entertainment", "Education", "Science & Tech", "Fashion", "Cooking", "Sports","Pets","Art", "Comedy","Vlogs"];
@@ -52,12 +54,14 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
 
                 {/* right */}
                 <div className="flex items-center gap-3">
-                    <button className="hidden md:flex items-center gap-1 bg-[#272727] px-3 
+                  {userData?.channel &&  <button className="hidden md:flex items-center gap-1 bg-[#272727] px-3 
                     py-1 rounded-full cursor-pointer">
                         <span className="text-lg">+</span>
                         <span className="">Create</span>
-                    </button>
-                    < FaUserCircle className="text-3xl hidden md:flex text-gray-400"/>
+                    </button>}
+                    {!userData?.photoUrl ?< FaUserCircle className="text-3xl hidden md:flex text-gray-400"/>
+                    : <img src={userData?.photoUrl} className="w-9 h-9 rounded-full object-cover border
+                    border-gray-700 hidden md:flex"/>}
                     <FaSearch className="text-lg md:hidden flex"/>
                 </div>
             </div>
@@ -126,7 +130,7 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
              </main>
 
 
-        {/* Bottom Nav */}
+        {/* Bottom Nav For Responsive */}
             <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#0f0f0f17] border-t
             border-gray-800 flex justify-around py-2 z-10">
                 <MobileSizeNav icon={< FaHome/>} text={"Home"} active={active === "Home"} 
@@ -137,7 +141,8 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
                 onClick={()=>setActive("+")}/>
                  <MobileSizeNav icon={< MdOutlineSubscriptions/>} text={"Subscriptions"} active={active === "Subscriptions"} 
                 onClick={()=>setActive("Subscriptions")}/>
-                <MobileSizeNav icon={< FaUserCircle/>} text={"You"} active={active === "You"} 
+                <MobileSizeNav icon={!userData?.photoUrl ? < FaUserCircle/>:<img src={userData.photoUrl} 
+                className="w-8 h-8 rounded-full object-cover border border-gray-700"/>} text={"You"} active={active === "You"} 
                 onClick={()=>setActive("You")}/>
             </nav>
         </div>

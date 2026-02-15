@@ -10,6 +10,7 @@ import {SiYoutubeshorts} from "react-icons/si";
 import {MdOutlineSubscriptions} from "react-icons/md";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Profile from "../components/Profile";
 
 function Home(){
     const [sidebarOpen,setSidebarOpen]=useState(true)
@@ -123,6 +124,8 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
                     ))}
                 </div>
             </>)}
+
+                    <Profile/>
 
                 <div className="mt-2">
                     <Outlet/>

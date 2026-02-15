@@ -18,6 +18,7 @@ function Home(){
     const [active, setActive] = useState("Home")
     const navigate = useNavigate()
     const {userData} = useSelector((state)=>state.user)
+    const [popup, setPopup] = useState(false)
 
 const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
      "Entertainment", "Education", "Science & Tech", "Fashion", "Cooking", "Sports","Pets","Art", "Comedy","Vlogs"];
@@ -60,9 +61,9 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
                         <span className="text-lg">+</span>
                         <span className="">Create</span>
                     </button>}
-                    {!userData?.photoUrl ?< FaUserCircle className="text-3xl hidden md:flex text-gray-400"/>
+                    {!userData?.photoUrl ?< FaUserCircle className="text-3xl hidden md:flex text-gray-400" onClick={()=>setPopup(prev => !prev)}/>
                     : <img src={userData?.photoUrl} className="w-9 h-9 rounded-full object-cover border
-                    border-gray-700 hidden md:flex"/>}
+                    border-gray-700 hidden md:flex" onClick={()=>setPopup(prev => !prev)}/>}
                     <FaSearch className="text-lg md:hidden flex"/>
                 </div>
             </div>
@@ -125,7 +126,7 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
                 </div>
             </>)}
 
-                    <Profile/>
+                    {popup && <Profile/>}
 
                 <div className="mt-2">
                     <Outlet/>

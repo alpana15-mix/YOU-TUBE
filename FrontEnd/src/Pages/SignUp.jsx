@@ -6,6 +6,8 @@ import {useNavigate} from "react-router-dom"
 import axios from 'axios'
 import {ClipLoader} from "react-spinners"
 import { showCustomAlert } from "../components/CustomAlert";
+import { useDispatch } from "react-redux";
+import { setUserData } from "../redux/userSlice";
 
 const serverUrl="http://localhost:8000";
 
@@ -20,6 +22,7 @@ function SignUp(){
     const [frontendImage,setFrontendImage]=useState(null)
     const[loading,setLoading]=useState(false)
      const navigate = useNavigate()
+     const dispatch = useDispatch()
 
 
     const handleNext = ()=>{
@@ -66,6 +69,7 @@ const handleSignUp = async ()=>{
     try {
         const result = await axios.post(`${serverUrl}/api/auth/signup`, formData, {withCredentials:true})
         console.log(result.data)
+        dispatch(setUserData(result.data))
         navigate("/")
         setLoading(false)
         showCustomAlert("Account Created")

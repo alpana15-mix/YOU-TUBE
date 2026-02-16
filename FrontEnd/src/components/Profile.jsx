@@ -1,17 +1,33 @@
 import React from "react";
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import{FiLogOut} from 'react-icons/fi';
 import {MdOutlineSwitchAccount} from 'react-icons/md';
 import{FcGoogle} from 'react-icons/fc';
 import{TiUserAddOutline} from 'react-icons/ti';
 import {SiYoutubestudio} from 'react-icons/si';
 import { useNavigate } from "react-router-dom";
-
+import axios from "axios" 
+import {serverUrl} from '../App'
+import { showCustomAlert } from "./CustomAlert";
+import { setUserData } from "../redux/userSlice";
 
 
 function Profile(){
     const {userData} = useSelector(state=>state.user)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const handleSignout = async () => {
+        try {
+            const result = await axios.get(serverUrl + "/api/auth/signout", {withCredentials:true})
+            dispatch(setUserData(null))
+            console.log(result.data)
+            showCustomAlert("Signout Successfully")
+        } catch (error) {
+            console.log(error)
+            showCustomAlert("Signout Error")
+        }
+    }
     return(
         <div>
             <div className="absolute right-5 top-10 mt-2 w-72 bg-[#212121] text-white rounded-xl shadow-lg z-50 hidden md:block">
@@ -41,7 +57,7 @@ function Profile(){
                        {userData?.channel && <button className="flex items-center gap-3 px-4 py-2 hover:bg-gray-700">
                         <SiYoutubestudio className="w-5 h-5 text-red-400"/>PT Studio</button>}
 
-                       {userData && <button className="flex items-center gap-3 px-4 py-2 hover:bg-gray-700">
+                       {userData && <button className="flex items-center gap-3 px-4 py-2 hover:bg-gray-700" onClick={handleSignout}>
                         <FiLogOut className="text-xl"/>SignOut</button>}
                 </div>
            

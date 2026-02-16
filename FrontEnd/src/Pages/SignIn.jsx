@@ -7,6 +7,8 @@ import { FaUserCircle } from "react-icons/fa";
 import { showCustomAlert } from "../components/CustomAlert";
 import { useNavigate } from "react-router-dom";
 import {ClipLoader} from "react-spinners"
+import { useDispatch } from "react-redux";
+import { setUserData } from "../redux/userSlice";
 
 const serverUrl="http://localhost:8000";
 
@@ -17,6 +19,7 @@ function SignIn(){
     const [password,setPassword]=useState("")
     const [showPassword, setShowPassword]=useState(false)
     const [loading,setLoading]=useState(false)
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
 const handleNext = ()=>{
@@ -42,6 +45,7 @@ const handleNext = ()=>{
             const result= await axios.post(serverUrl + "/api/auth/signin", {email, password}, {withCredentials:true})
         
              console.log(result.data)
+             dispatch(setUserData(result.data))
                     navigate("/")
                     setLoading(false)
                     showCustomAlert("User SignIn Successfull")

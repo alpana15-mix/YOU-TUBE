@@ -8,7 +8,7 @@ import {IoIosAddCircle} from "react-icons/io";
 import {GoVideo} from "react-icons/go";
 import {SiYoutubeshorts} from "react-icons/si";
 import {MdOutlineSubscriptions} from "react-icons/md";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Profile from "../components/Profile";
 
@@ -17,6 +17,7 @@ function Home(){
     const [selectedItem, setSelectedItem]=useState("Home")
     const [active, setActive] = useState("Home")
     const navigate = useNavigate()
+    const location = useLocation()
     const {userData} = useSelector((state)=>state.user)
     const [popup, setPopup] = useState(false)
 

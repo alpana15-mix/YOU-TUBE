@@ -139,7 +139,7 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
             <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#0f0f0f17] border-t
             border-gray-800 flex justify-around py-2 z-10">
                 <MobileSizeNav icon={< FaHome/>} text={"Home"} active={active === "Home"} 
-                onClick={()=>setActive("Home")}/>
+                onClick={()=>{setActive("Home"); navigate('/')}}/>
                 <MobileSizeNav icon={< SiYoutubeshorts/>} text={"Shorts"} active={active === "Shorts"} 
                 onClick={()=>setActive("Shorts")}/>
                 <MobileSizeNav icon={< IoIosAddCircle size={40}/>} active={active === "+"} 
@@ -148,7 +148,7 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
                 onClick={()=>setActive("Subscriptions")}/>
                 <MobileSizeNav icon={!userData?.photoUrl ? < FaUserCircle/>:<img src={userData.photoUrl} 
                 className="w-8 h-8 rounded-full object-cover border border-gray-700"/>} text={"You"} active={active === "You"} 
-                onClick={()=>setActive("You")}/>
+                onClick={()=>{setActive("You"); navigate('/mobilepro')}}/>
             </nav>
         </div>
     )

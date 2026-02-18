@@ -118,7 +118,7 @@ const handleNext = ()=>{
                    </div>
 
  <div className="flex justify-between items-center mt-10">
-                   <button className="text-red-600 text-sm hover:underline">forget password</button>
+                   <button className="text-red-600 text-sm hover:underline" onClick={()=>navigate("/forgetpass")}>forget password</button>
                     <button className="bg-red-600 hover:bg-red-700 text-white px-6 
                     py-2 rounded-full" onClick={handleSignIn} disabled={loading}>{loading ? <ClipLoader color="black" size={20}/>:"SignIn"}</button>
                    </div>

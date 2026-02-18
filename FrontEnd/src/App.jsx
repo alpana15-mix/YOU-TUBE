@@ -7,6 +7,7 @@ import CustomAlert from "./components/CustomAlert";
 import Shorts from "./Pages/Shorts/Shorts.jsx"
 import GetCurrentUser from "./customHooks/GetCurrentUser.jsx";
 import MobileProfile from "./components/MobileProfile.jsx";
+import ForgetPassword from "./Pages/ForgetPassword.jsx";
 
 export const serverUrl ="http://localhost:8000"
 
@@ -22,6 +23,7 @@ function App(){
     </Route>
     <Route path="/signup" element={<SignUp/>}/>
     <Route path="/signin" element={<SignIn/>}/>
+    <Route path="/forgetpass" element={<ForgetPassword/>}/>
 </Routes>
         </>
     )

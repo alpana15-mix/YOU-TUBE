@@ -1,6 +1,6 @@
 import express from "express"
 import upload from "../middleware/multer.js"
-import { googleAuth, signIn, signOut, signUp } from "../controller/authController.js"
+import { googleAuth, resetPassword, sendOtp, signIn, signOut, signUp, verifyOtp } from "../controller/authController.js"
 
 const authRouter = express.Router();
 
@@ -8,5 +8,8 @@ authRouter.post("/signup", upload.single("photoUrl"), signUp)
 authRouter.post("/signin",signIn)
 authRouter.get("/signout",signOut)
 authRouter.post("/googleauth", upload.single("photoUrl"), googleAuth)
+authRouter.post("/sendotp", sendOtp)
+authRouter.post("/verifyotp", verifyOtp)
+authRouter.post("/resetpassword", resetPassword)
 
 export default authRouter;

@@ -146,7 +146,7 @@ export const sendOtp = async (req, res) => {
 
 export const verifyOtp = async (req,res) => {
     try {
-        const {email, otp} = res.body
+        const {email, otp} = req.body
         const user = await User.findOne({email})
         if(!user || user.resetOtp != otp || user.otpExpires < Date.now()){
             return res.status(400).json({message:"Invalid OTP"})

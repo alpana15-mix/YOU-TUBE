@@ -8,6 +8,8 @@ import Shorts from "./Pages/Shorts/Shorts.jsx"
 import GetCurrentUser from "./customHooks/GetCurrentUser.jsx";
 import MobileProfile from "./components/MobileProfile.jsx";
 import ForgetPassword from "./Pages/ForgetPassword.jsx";
+import CreateChannel from "./Pages/Channel/CreateChannel.jsx";
+import ViewChannel from "./Pages/Channel/ViewChannel.jsx";
 
 export const serverUrl ="http://localhost:8000"
 
@@ -20,10 +22,12 @@ function App(){
     <Route path="/" element={<Home/>}>
     <Route path="/shorts" element={<Shorts/>}/>
     <Route path="/mobilepro" element={<MobileProfile/>}/>
+    <Route path="/viewchannel" element={<ViewChannel/>}/>
     </Route>
     <Route path="/signup" element={<SignUp/>}/>
     <Route path="/signin" element={<SignIn/>}/>
     <Route path="/forgetpass" element={<ForgetPassword/>}/>
+    <Route path="/createchannel" element={<CreateChannel/>}/>
 </Routes>
         </>
     )

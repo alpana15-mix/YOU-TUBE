@@ -17,7 +17,10 @@ try {
     return result.secure_url
 } catch(error){
     console.log(error)
-    fs.unlinkSync(filePath)
+    if(filePath && fs.existsSync(filePath)){
+        fs.unlinkSync(filePath)
+    }
+    return null;
 }
 }
 

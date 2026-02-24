@@ -54,6 +54,7 @@ export const createChannel = async (req,res) => {
 return res.status(201).json(channel)
 
     } catch (error) {
-        return res.status(500).json({message:`Create Channel error ${error}`}) 
+        console.log("create channel error:",error)
+        return res.status(500).json({message:error.message}) 
     }
 } 

@@ -58,3 +58,18 @@ return res.status(201).json(channel)
         return res.status(500).json({message:error.message}) 
     }
 } 
+
+
+export const getChannelData = async (req,res) => {
+    try {
+        const userId = req.userId
+        const channel = await Channel.findOne({owner:userId}).populate("owner")
+        if(!channel){
+            return res.status(404).json({message:"Channel is not found"})
+        }
+        return res.status(200).json(channel)
+    } catch (error) {
+        return res.status(500).json({message:`Failed to get Channel ${error}`})
+        
+    }
+}

@@ -56,7 +56,7 @@ const priviouststep =()=>{setStep((prev)=>(prev > 1 ? prev- 1 : prev));}
 
     return(
         <div className="w-full min-h-screen bg-[#0f0f0f] text-white flex flex-col">
-            <header className=" flex justify-between items-center px-6 py-3 border-b border-gray-800 ">
+            <header className=" flex justify-between items-center px-6 py-3  mt-8 border-b border-gray-800 ">
                 <div className="flex items-center gap-2">
                     <img src={logo} alt="" className="w-8 h-8 object-cover"/>
                     <span className="text-white font-bold text-xl tracking-tight font-roboto">YouTube</span>

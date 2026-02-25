@@ -28,7 +28,7 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
         <div className="bg-[#0f0f0f]  text-white min-h-screen relative">
         
         {/*navbar*/}
-        <header className="bg-[#0f0f0f] h-15 p-3 border-b border-gray-800  fixed top-0 left-0 right-0 z-50">
+        <header className="bg-[#0f0f0f] h-15 p-3 border-0 border-gray-800  fixed top-0 left-0 right-0 z-50">
             <div className="flex items-center justify-between">
                 {/*left*/}
                 <div className="flex items-center gap-4">
@@ -72,7 +72,7 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
 
         {/* sideBar */}
 
-        <aside className={`bg-[#0f0f0f] border-r border-gray-800 
+        <aside className={`bg-[#0f0f0f] border-0 border-gray-800 
             transition-all duration-300 fixed top-15 bottom-0 z-40 
             ${sidebarOpen? "w-60" :"w-20"} hidden md:flex flex-col overflow-y-auto`}>
 
@@ -111,13 +111,13 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
         </aside>
 
 
-            {/* Main Area */}
+            {/* Main Area and navbar*/}
             <main className={` overflow-y-auto p-4 flex flex-col pb-16 transition-all
              duration-300 ${sidebarOpen? "md:ml-60" : "md:ml-20"}`}>
 
             { location.pathname === "/" && ( 
                 <>   
-                <div className="flex items-center gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden pt-2 mt-15">
+                <div className="flex items-center gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden pt-2 mt-13">
                     {categories.map((cat,id)=>(
                         <button key={id} className="whitespace-nowrap bg-[#272727] px-4 py-1
                         rounded-lg text-sm hover:bg-gray-700">

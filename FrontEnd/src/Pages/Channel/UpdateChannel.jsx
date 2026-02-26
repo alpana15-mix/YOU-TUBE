@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import logo from "../../assets/Youtube_logo.png"
 import { useState } from "react"
 import { FaUserCircle } from "react-icons/fa"
@@ -7,6 +7,7 @@ import axios from "axios"
 import { serverUrl } from "../../App"
 import { showCustomAlert } from "../../components/CustomAlert"
 import { ClipLoader } from "react-spinners"
+import { setChannelData } from "../../redux/userSlice"
 
 function UpdateChannel(){
 
@@ -19,10 +20,12 @@ function UpdateChannel(){
     const [discription, setDiscription]=useState(channelData?.description)
     const [category, setCategory]=useState(channelData?.category)
     const [loading,setLoading]=useState(false)
+    const dispatch = useDispatch()
      const navigate = useNavigate()
+     
 
 
-    const handleCreateChannel = async () => {
+    const handleUpdateChannel = async () => {
         const formData = new FormData()
         formData.append("name",channelName)
         formData.append("discription",discription)
@@ -32,16 +35,17 @@ function UpdateChannel(){
         setLoading(true)
         try {
             console.log(channelName,discription,category);
-            const result = await axios.post(serverUrl + "/api/user/createchannel", formData, 
+            const result = await axios.post(serverUrl + "/api/user/updatechannel", formData, 
             {withCredentials:true})
             setLoading(false)
             console.log(result.data)
-            showCustomAlert("Channel Created")
+            dispatch(setChannelData(result.data))
+            showCustomAlert("Channel Updated")
             navigate("/")
         } catch (error) {
              setLoading(false)
             console.log(error)
-            showCustomAlert("Channel Create error ")
+            showCustomAlert("Channel Update error ")
         }
     }
 
@@ -67,7 +71,7 @@ const priviouststep =()=>{setStep((prev)=>(prev > 1 ? prev- 1 : prev));}
                            {/* page1 */}
                             {step === 1 && (
                                 <div>
-                                    <h2 className="text-2xl font-semibold mb-4">How you'll appear</h2>
+                                    <h2 className="text-2xl font-semibold mb-4">Customize channel</h2>
                                     <p className="text-sm text-gray-400 mb-6">Choose your profile picture , Channel name</p>
                                     <div className="flex flex-col items-center mb-6">
                                         <label htmlFor="avatar" className="cursor-pointer flex flex-col items-center">
@@ -101,7 +105,7 @@ const priviouststep =()=>{setStep((prev)=>(prev > 1 ? prev- 1 : prev));}
                              {/* page2 */}
                             {step === 2 && (
                                 <div>
-                                    <h2 className="text-2xl font-semibold mb-4">Your Channel</h2>
+                                    <h2 className="text-2xl font-semibold mb-4">Your Updated Channel</h2>
                                     
                                     <div className="flex flex-col items-center mb-6">
                                         <label className="cursor-pointer flex flex-col items-center">
@@ -124,7 +128,7 @@ const priviouststep =()=>{setStep((prev)=>(prev > 1 ? prev- 1 : prev));}
                                     </div>
                                      <button onClick={nextstep} disabled={!channelName} className="w-full flex items-center 
                                          justify-center gap-2 bg-red-600 hover:bg-red-700 transition py-3 rounded-lg font-medium 
-                                         disabled:bg-gray-600">Continue and Create Channel</button>
+                                         disabled:bg-gray-600">Continue and Customize Channel</button>
                                          <span className="w-full flex items-center justify-center text-sm text-blue-400 
                                          cursor-pointer hover:underline mt-2 " onClick={priviouststep}>Back</span>
                                        
@@ -136,7 +140,7 @@ const priviouststep =()=>{setStep((prev)=>(prev > 1 ? prev- 1 : prev));}
                               {/* page3 */}
                             {step === 3 && (
                                 <div>
-                                    <h2 className="text-2xl font-semibold mb-4">Create Channel</h2>
+                                    <h2 className="text-2xl font-semibold mb-4">Customize Channel</h2>
                                    
                                     <div className="flex flex-col items-center mb-6">
                                         <label htmlFor="banner" className="cursor-pointer block mb-6 w-full">
@@ -162,9 +166,9 @@ const priviouststep =()=>{setStep((prev)=>(prev > 1 ? prev- 1 : prev));}
                                          rounded-lg bg-[#121212] border border-gray-700 text-white focus:outline-none 
                                          focus:ring-2 focus:ring-red-500 " onChange={(e)=>setCategory(e.target.value)} value={category}/>
         
-                                         <button onClick={handleCreateChannel} disabled={!discription || !category || loading} className="w-full flex items-center 
+                                         <button onClick={handleUpdateChannel} disabled={!discription || !category || loading} className="w-full flex items-center 
                                          justify-center gap-2 bg-red-600 hover:bg-red-700 transition py-3 rounded-lg font-medium 
-                                         disabled:bg-gray-600" >{loading? <ClipLoader color="black" size={20}/> : "Save & Create Channel"}</button>
+                                         disabled:bg-gray-600" >{loading? <ClipLoader color="black" size={20}/> : "Save & Customize Channel"}</button>
                                          <span className="w-full flex items-center justify-center text-sm text-blue-400 
                                          cursor-pointer hover:underline mt-2 " onClick={priviouststep}>Back</span>
                                        

@@ -60,6 +60,54 @@ return res.status(201).json(channel)
 } 
 
 
+export const updateChannel = async (req,res) => {
+    try {
+                const {name, description, category} = req.body
+        const userId = req.userId
+        const channel = await Channel.findOne({owner:userId})
+        if(!channel){
+            return res.status(404).json({message:"channel is not found"})
+        }
+        if(name && name !== channel.name){
+             const nameExists = await Channel.findOne({name})
+        if(nameExists){
+           return res.status(400).json({message:"Channel name already taken"}) 
+        }
+        channel.name = name
+        }
+        if(description !== undefined){
+            channel.description = description
+        }
+        if(category !== undefined){
+            channel.category = category
+        }
+
+        if(req.files?.avatar){
+          const  avatar = await uploadOnCloudinary(req.files.avatar[0].path)
+          channel.avatar = avatar
+        }
+        if(req.files?.banner){
+          const  banner = await uploadOnCloudinary(req.files.banner[0].path)
+          channel.banner = banner
+        }
+
+        const updateChannel = await channel.save()
+
+            await User.findByIdAndUpdate(userId, {
+        
+            userName:name || undefined,
+            photoUrl:channel.avatar || undefined
+        },{new:true})
+
+       
+return res.status(200).json(updateChannel)
+
+    } catch (error) {
+        return res.status(500).json({message:error.message})  
+    }
+}
+
+
 export const getChannelData = async (req,res) => {
     try {
         const userId = req.userId

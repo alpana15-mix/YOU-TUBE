@@ -35,7 +35,7 @@ function ViewChannel(){
                     <p className="mt-4 font-medium">Create content on any device</p>
                     <p className="text-gray-400 text-sm text-center">Upload and record at home or on the go. Everything you make public will appear here.</p>
                     <button className="bg-white text-black mt-4 px-5 py-1
-                    rounded-full font-medium cursor-pointer ">+ Create</button>
+                    rounded-full font-medium cursor-pointer " onClick={navigate("/create")}>+ Create</button>
                 </div>
             </div>
         </div>

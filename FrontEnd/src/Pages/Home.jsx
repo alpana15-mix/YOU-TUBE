@@ -58,7 +58,7 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
                 {/* right */}
                 <div className="flex items-center gap-3">
                   {userData?.channel &&  <button className="hidden md:flex items-center gap-1 bg-[#272727] px-3 
-                    py-1 rounded-full cursor-pointer">
+                    py-1 rounded-full cursor-pointer" onClick={()=>navigate("/create")}>
                         <span className="text-lg">+</span>
                         <span className="">Create</span>
                     </button>}
@@ -143,7 +143,7 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
                 <MobileSizeNav icon={< SiYoutubeshorts/>} text={"Shorts"} active={active === "Shorts"} 
                 onClick={()=>setActive("Shorts")}/>
                 <MobileSizeNav icon={< IoIosAddCircle size={40}/>} active={active === "+"} 
-                onClick={()=>setActive("+")}/>
+                onClick={()=>{setActive("+"); navigate("/create")}}/>
                  <MobileSizeNav icon={< MdOutlineSubscriptions/>} text={"Subscriptions"} active={active === "Subscriptions"} 
                 onClick={()=>setActive("Subscriptions")}/>
                 <MobileSizeNav icon={!userData?.photoUrl ? < FaUserCircle/>:<img src={userData.photoUrl} 

@@ -19,7 +19,7 @@ export const serverUrl ="http://localhost:8000"
 
 
 const ProtectRout = ({userData, children})=>{
-    if(!userData){
+    if(userData){
         showCustomAlert("Please sign up first to use this feature!")
         return <Navigate to={"/"} replace/>
     }

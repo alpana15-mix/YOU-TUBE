@@ -1,9 +1,11 @@
 import React, { useState } from "react"
 import {FaVideo, FaPlay, FaPen, FaList} from "react-icons/fa";
 import { PiFilmSlateFill } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
 
 
 function CreatePage(){
+    const navigate = useNavigate()
 
     const [selected,setSelected]=useState(false)
     const options = [
@@ -30,6 +32,21 @@ function CreatePage(){
 
 
     ]
+
+
+const handleRoute = ()=>{
+    const routes={
+        video : "/createvideo",
+        short : "/createshort",
+        post : "/createpost",
+        playlist : "/createplaylist"
+    }
+    if(selected && routes[selected]){
+        navigate(routes[selected])
+    }
+}
+
+
     return(
         <div className="bg-[#0f0f0f] min-h-screen text-white px-6 py-8 mt-10 flex flex-col">
             <header className="mb-12 border-b border-[#3f3f3f] pb-4">
@@ -38,7 +55,7 @@ function CreatePage(){
             </header>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 flex-1">
                 {options.map((opt)=>(
-                    <div className={`bg-[#1f1f1f] border border-[#3f3f3f] rounded-lg p-6 flex flex-col
+                    <div key={opt.id} className={`bg-[#1f1f1f] border border-[#3f3f3f] rounded-lg p-6 flex flex-col
                      items-center text-center justify-center cursor-pointer transition
                       ${selected === opt.id? "ring-2 ring-red-500":"hover:bg-[#272727]"}`} onClick={()=>setSelected(opt.id)}>
                         <div className="bg-[#272727] p-4 rounded-full mb-4">{opt.icon}</div>
@@ -61,7 +78,7 @@ function CreatePage(){
                         <p className="mt-4 font-medium text-center">Ready to create?</p>
                         <p className="text-gray-400 text-sm text-center">Click below to start your {options.find((opt)=>opt.id===selected)?.title.toLowerCase()}.</p>
                         <button className="bg-white text-black mt-4 px-5 py-1 rounded-full font-medium cursor-pointer"
-                        >+ Create</button>
+                        onClick={handleRoute}>+ Create</button>
                     </div>
                 )}
                 </div>

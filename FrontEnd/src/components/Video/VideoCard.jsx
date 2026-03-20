@@ -1,32 +1,54 @@
-import React from "react";
+import React from "react"
+import { useNavigate } from "react-router-dom"
 
-const VideoCard = ({ video }) => {
-  return (
-    <div className="w-full cursor-pointer hover:scale-105 transition duration-200">
-      
-      {/* Thumbnail */}
-      <img
-        src={video.thumbnail}
-        alt="thumbnail"
-        className="w-full rounded-xl"
-      />
+export default function VideoCard({ video }) {
 
-      {/* Video Info */}
-      <div className="mt-2">
-        <h3 className="font-semibold text-sm md:text-base line-clamp-2">
-          {video.title}
-        </h3>
+const navigate = useNavigate()
 
-        <p className="text-gray-500 text-xs md:text-sm">
-          {video.channel}
-        </p>
+return (
 
-        <p className="text-gray-500 text-xs">
-          {video.views} views
-        </p>
-      </div>
-    </div>
-  );
-};
+<div
+className="cursor-pointer"
+onClick={() => navigate(`/video/${video._id}`)}
+>
 
-export default VideoCard;
+{/* Thumbnail */}
+
+<img
+src={video.thumbnailUrl}
+alt="thumbnail"
+className="w-full h-44 object-cover rounded-lg transition hover:scale-105"
+/>
+
+{/* Video Info */}
+
+<div className="flex gap-3 mt-3">
+
+{/* Channel icon */}
+
+<div className="w-9 h-9 bg-gray-600 rounded-full flex items-center justify-center text-white">
+{video.channelName?.charAt(0)}
+</div>
+
+<div>
+
+<h3 className="text-sm font-semibold">
+{video.title}
+</h3>
+
+<p className="text-xs text-gray-400">
+{video.channelName}
+</p>
+
+<p className="text-xs text-gray-400">
+{video.views} views
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+)
+}

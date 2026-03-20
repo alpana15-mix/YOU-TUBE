@@ -20,9 +20,11 @@ function Home(){
     const location = useLocation()
     const {userData} = useSelector((state)=>state.user)
     const [popup, setPopup] = useState(false)
+    const [search,setSearch] = useState("")
+    const [category,setCategory] = useState("")
 
-const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
-     "Entertainment", "Education", "Science & Tech", "Fashion", "Cooking", "Sports","Pets","Art", "Comedy","Vlogs"];
+const categories = ["Music", "Gaming", "Movies", "Sports", "News","Cartoon", "Nature",
+     "Entertainment", "Coding", "Fashion", "Cooking", "Sports","Pets", "Comedy","Vlogs"];
 
     return(
         <div className="bg-[#0f0f0f]  text-white min-h-screen relative">
@@ -46,7 +48,8 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
                 {/* search bar */}
                 <div className="hidden md:flex items-center gap-2 flex-1 max-w-xl">
                     <div className="flex flex-1">
-                        <input type="text" className="flex-1 bg-[#121212] px-4 py-2 rounded-l-full outline-none
+                        <input type="text" value={search} onChange={(e)=>setSearch(e.target.value)}
+                          className="flex-1 bg-[#121212] px-4 py-2 rounded-l-full outline-none
                          border border-gray-700" placeholder="Search"/>
                         <button className="bg-[#272727] px-4 rounded-r-full border-gray-700"><FaSearch /></button>
                     </div>
@@ -119,7 +122,7 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
                 <>   
                 <div className="flex items-center gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden pt-2 mt-13">
                     {categories.map((cat,id)=>(
-                        <button key={id} className="whitespace-nowrap bg-[#272727] px-4 py-1
+                        <button onClick={()=>setCategory(cat)} key={id} className="whitespace-nowrap bg-[#272727] px-4 py-1
                         rounded-lg text-sm hover:bg-gray-700">
                             {cat}
                         </button>
@@ -130,7 +133,7 @@ const categories = ["Music", "Gaming", "Movies", "TV Shows", "News", "Trending",
                     {popup && <Profile/>}
 
                 <div className="mt-2">
-                    <Outlet/>
+                    <Outlet context={{search,category}}/>
                 </div>
              </main>
 

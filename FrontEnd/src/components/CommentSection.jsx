@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from "react"
 import axios from "axios"
+import { useSelector } from "react-redux"
 
 import { FaUserCircle } from "react-icons/fa"
 import { AiOutlineLike } from "react-icons/ai"
@@ -14,25 +15,23 @@ const [comments,setComments] = useState([])
 const [text,setText] = useState("")
 const [editId,setEditId] = useState(null)
 
-const fetchComments = async()=>{
+const {userData} = useSelector((state)=>state.user)
 
+
+// FETCH COMMENTS
+const fetchComments = async()=>{
 const res = await axios.get(
 `http://localhost:8000/api/comment/${videoId}`
 )
-
 setComments(res.data)
-
 }
 
 useEffect(()=>{
-
 fetchComments()
-
 },[videoId])
 
 
-/* ADD COMMENT */
-
+// ADD COMMENT
 const addComment = async()=>{
 
 if(!text.trim()) return
@@ -40,53 +39,48 @@ if(!text.trim()) return
 await axios.post(
 "http://localhost:8000/api/comment",
 {
-videoId,
-text
-}
+videoId: String(videoId),   
+text: text.trim()
+},
+{ withCredentials:true } 
 )
 
 setText("")
 fetchComments()
-
 }
 
 
-/* DELETE COMMENT */
-
+// DELETE COMMENT
 const deleteComment = async(id)=>{
 
 await axios.delete(
-`http://localhost:8000/api/comment/${id}`
+`http://localhost:8000/api/comment/${id}`,
+{ withCredentials:true }
 )
 
 fetchComments()
-
 }
 
 
-/* EDIT COMMENT */
-
+// EDIT COMMENT
 const updateComment = async()=>{
 
 await axios.put(
 `http://localhost:8000/api/comment/${editId}`,
 {
-text
-}
+text: text.trim()
+},
+{ withCredentials:true }
 )
 
 setEditId(null)
 setText("")
-
 fetchComments()
-
 }
 
 
-/* LIKE COMMENT */
-
+// LIKE (UI only)
 const likeComment = (id)=>{
-
 setComments(prev =>
 prev.map(c =>
 c._id === id
@@ -94,7 +88,6 @@ c._id === id
 :c
 )
 )
-
 }
 
 
@@ -111,7 +104,11 @@ Comments ({comments.length})
 
 <div className="flex gap-3 mb-6">
 
+{userData?.photoUrl ?
+<img src={userData.photoUrl} className="w-9 h-9 rounded-full"/>
+:
 <FaUserCircle size={36}/>
+}
 
 <input
 type="text"
@@ -139,20 +136,23 @@ className="bg-blue-600 px-4 py-2 rounded"
 
 <div key={c._id} className="flex gap-3">
 
+{c.userId?.photoUrl ?
+<img src={c.userId.photoUrl} className="w-9 h-9 rounded-full"/>
+:
 <FaUserCircle size={35}/>
+}
 
 <div className="flex-1">
 
 <p className="text-sm font-semibold">
 
-User
+{c.userId?.userName || "User"}   {/* USERNAME */}
 
 <span className="text-gray-400 text-xs ml-2">
 {timeAgo(c.createdAt)}
 </span>
 
 </p>
-
 
 <p className="text-gray-300">
 {c.text}
@@ -172,19 +172,21 @@ onClick={()=>likeComment(c._id)}
 </button>
 
 
+{/* ONLY OWNER */}
+
+{userData?._id === c.userId?._id && (
+
+<>
 <button
 className="flex items-center gap-1"
 onClick={()=>{
-
 setEditId(c._id)
 setText(c.text)
-
 }}
 >
 <FiEdit/>
 Edit
 </button>
-
 
 <button
 className="flex items-center gap-1 text-red-400"
@@ -193,6 +195,9 @@ onClick={()=>deleteComment(c._id)}
 <MdDelete/>
 Delete
 </button>
+</>
+
+)}
 
 </div>
 
@@ -207,5 +212,4 @@ Delete
 </div>
 
 )
-
 }

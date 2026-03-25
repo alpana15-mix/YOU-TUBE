@@ -23,8 +23,8 @@ function Home(){
     const [search,setSearch] = useState("")
     const [category,setCategory] = useState("")
 
-const categories = ["Music", "Gaming", "Movies", "Sports", "News","Cartoon", "Nature",
-     "Entertainment", "Coding", "Fashion", "Cooking", "Sports","Pets", "Comedy","Vlogs"];
+const categories = ["Music",  "Comedy", "Movies","Vlogs", "News","Cartoon", "Nature",
+     "Entertainment","Pets" , "Fashion","Coding","Gaming", "Cooking", "Sports"];
 
     return(
         <div className="bg-[#0f0f0f]  text-white min-h-screen relative">
@@ -140,7 +140,7 @@ const categories = ["Music", "Gaming", "Movies", "Sports", "News","Cartoon", "Na
 
         {/* Bottom Nav For Responsive */}
             <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-[#0f0f0f17] border-t
-            border-gray-800 flex justify-around py-2 z-10">
+            border-gray-800 flex justify-around py-2 z-10 ">
                 <MobileSizeNav icon={< FaHome/>} text={"Home"} active={active === "Home"} 
                 onClick={()=>{setActive("Home"); navigate('/')}}/>
                 <MobileSizeNav icon={< SiYoutubeshorts/>} text={"Shorts"} active={active === "Shorts"} 

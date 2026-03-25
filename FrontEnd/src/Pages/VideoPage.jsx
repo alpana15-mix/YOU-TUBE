@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom"
 import VideoActions from "../components/VideoActions"
 import SuggestionVideo from "../components/SuggestionVideo"
 import CommentSection from "../components/CommentSection"
+import formatViews from "../../utils/formatViews"
 
 export default function VideoPage(){
 

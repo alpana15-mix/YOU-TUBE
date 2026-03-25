@@ -56,8 +56,8 @@ function App(){
 
 <Routes>
     <Route path="/" element={<Home/>}>
-    <Route index element={<HomeFeed/>}/>
-    <Route path="video/:id" element={<VideoPage/>}/>
+    <Route index element={<ProtectRout userData={userData}><HomeFeed/></ProtectRout>}/>
+    <Route path="video/:id" element={<ProtectRout userData={userData}><VideoPage/></ProtectRout>}/>
     <Route path="/shorts" element={<ProtectRout userData={userData}><Shorts/></ProtectRout>}/>
     <Route path="/mobilepro" element={<ProtectRout userData={userData}><MobileProfile/></ProtectRout>}/>
     <Route path="/viewchannel" element={<ProtectRout userData={userData}><ViewChannel/></ProtectRout>}/>

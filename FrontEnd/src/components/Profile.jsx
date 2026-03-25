@@ -79,7 +79,7 @@ try {
                         <TiUserAddOutline className="text-xl"/>Create New account</button>
 
                         <button className="flex items-center gap-3 px-4 py-2 hover:bg-gray-700" onClick={()=> navigate("/signin")}>
-                        <MdOutlineSwitchAccount className="text-xl"/>SignIn with other account</button>
+                        <MdOutlineSwitchAccount className="text-xl"/>SignIn with another Account</button>
 
                        {userData?.channel && <button className="flex items-center gap-3 px-4 py-2 hover:bg-gray-700">
                         <SiYoutubestudio className="w-5 h-5 text-red-400"/>PT Studio</button>}

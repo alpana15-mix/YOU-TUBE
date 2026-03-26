@@ -55,7 +55,7 @@ The project replicates core YouTube functionalities including video browsing, pl
 - Mobile friendly layout
 - Bottom navigation (YouTube style)
 - Sidebar navigation
-- Profile section (mobile + desktop)
+- Profile section (mobile + tab + desktop)
 
 ---
 
